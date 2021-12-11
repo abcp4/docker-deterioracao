@@ -1,12 +1,10 @@
 """ Módulo principal da API de predição
 """
 import joblib
-from fastapi import FastAPI
-from pydantic import BaseModel, validator
-from binning import binning
 import numpy as np
-import xgboost
-import shap
+from binning import binning
+from fastapi import FastAPI
+
 description = """
 # Desafio Machine Learning Engineer. 🚀
 
@@ -38,7 +36,6 @@ app = FastAPI(
 )
 
 
-
 model = joblib.load("models/xgb_model.joblib")
 label_encoder = joblib.load("models/le.joblib")
 scaler = joblib.load("models/scaler.joblib")
@@ -46,18 +43,20 @@ scaler = joblib.load("models/scaler.joblib")
 nosection_model = joblib.load("models/nosection_xgb_model.joblib")
 nosection_scaler = joblib.load("models/nosection_scaler.joblib")
 
+
 @app.get("/predict")
-def predict_data(age: int,
-                sector: str,
-                temperature: float,
-                respiratory_frequency: float,
-                systolic_blood_pressure: float,
-                diastolic_blood_pressure: float,
-                mean_arterial_pressure: float,
-                oxygen_saturation: float
-                ):
+def predict_data(
+    age: int,
+    sector: str,
+    temperature: float,
+    respiratory_frequency: float,
+    systolic_blood_pressure: float,
+    diastolic_blood_pressure: float,
+    mean_arterial_pressure: float,
+    oxygen_saturation: float,
+):
     """Informe os dados do paciente que deseja obter uma predição."""
-    if(sector != 'Nenhum'):
+    if sector != "Nenhum":
         sector_encoded = label_encoder.transform([sector])
         features = [
             age,
@@ -81,22 +80,20 @@ def predict_data(age: int,
             oxygen_saturation,
         ]
 
-    extra_features=binning(features)
+    extra_features = binning(features)
     features.extend(list(extra_features.flatten()))
-    
-    features_np=np.asarray(features,dtype=np.float64)
-    if(sector != 'Nenhum'):
-        features_np=scaler.transform([features_np])
+
+    features_np = np.asarray(features, dtype=np.float64)
+    if sector != "Nenhum":
+        features_np = scaler.transform([features_np])
         y_pred = model.predict(features_np)
-        return {"predict": y_pred[0],'features': features}
+        return {"predict": y_pred[0], "features": features}
     else:
         print(features_np)
-        features_np=np.delete(features_np, 1)
+        features_np = np.delete(features_np, 1)
         print(features_np)
-        features_np=nosection_scaler.transform([features_np])
+        features_np = nosection_scaler.transform([features_np])
         y_pred = nosection_model.predict(features_np)
-        features=[features[0]]+features[2:]
+        features = [features[0]] + features[2:]
         print(features)
-        return {"predict": y_pred[0],'features': features}
-    
-    
+        return {"predict": y_pred[0], "features": features}

@@ -1,19 +1,30 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 
-column_names=[  'Idade','Setor','Temperatura','Frequência respiratória',
-                'Pressão Sistólica','Pressão Diastólica',
-                'Pressão Média','Saturação O2',
-                'Bin_Temperatura','Bin_Respiração',
-                'Bin_Sistólica','Bin_Média','Bin_o2']
-                
+column_names = [
+    "Idade",
+    "Setor",
+    "Temperatura",
+    "Frequência respiratória",
+    "Pressão Sistólica",
+    "Pressão Diastólica",
+    "Pressão Média",
+    "Saturação O2",
+    "Bin_Temperatura",
+    "Bin_Respiração",
+    "Bin_Sistólica",
+    "Bin_Média",
+    "Bin_o2",
+]
+
+
 def binning(df):
-    df={column_names[k]:[df[k]] for k in range(len(df))}
-    df=pd.DataFrame.from_dict(df)
-    
+    df = {column_names[k]: [df[k]] for k in range(len(df))}
+    df = pd.DataFrame.from_dict(df)
+
     features = np.zeros((len(df), 5))
 
-    #temperatura
+    # temperatura
     for i in range(len(df)):
         temperatura = df.iloc[i, 2]
         if temperatura <= 35:
@@ -26,9 +37,9 @@ def binning(df):
             temperatura_bin = 0
         features[i, 0] = temperatura_bin
 
-        #frequencia respiratoria
+        # frequencia respiratoria
         respiracao = df.iloc[i, 3]
-        if (respiracao < 8)|(respiracao > 25):
+        if (respiracao < 8) | (respiracao > 25):
             respiracao_bin = 3
         elif 21 <= respiracao <= 24:
             respiracao_bin = 2
@@ -36,11 +47,11 @@ def binning(df):
             respiracao_bin = 1
         else:
             respiracao_bin = 0
-        features[i,1] = respiracao_bin
+        features[i, 1] = respiracao_bin
 
-        #pressao sistolica
-        sistolica = df.iloc[i, 4]  
-        if (sistolica <= 100):
+        # pressao sistolica
+        sistolica = df.iloc[i, 4]
+        if sistolica <= 100:
             sistolica_bin = 1
         elif (sistolica <= 90) & (sistolica >= 220):
             sistolica_bin = 3
@@ -52,7 +63,7 @@ def binning(df):
             sistolica_bin = 0
         features[i, 2] = sistolica_bin
 
-        #media
+        # media
         media = df.iloc[i, 6]
         if media >= 70:
             media_bin = 0
@@ -60,7 +71,7 @@ def binning(df):
             media_bin = 1
         features[i, 3] = media_bin
 
-        #o2
+        # o2
         o2 = df.iloc[i, 6]
         if o2 <= 91:
             o2_bin = 3
@@ -73,6 +84,6 @@ def binning(df):
 
         features[i, 4] = o2_bin
 
-    features=np.reshape(features,(5,len(df)))
+    features = np.reshape(features, (5, len(df)))
 
     return features
