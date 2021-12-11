@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.9.9-slim-buster
+FROM python:3.9.9-buster
 
 # set working directory
 WORKDIR /api/
