@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  api-predict:
+    build: api/
+    ports:
+      - 8000:8000
+    networks:
+      - app_network
+    container_name: api-service
+
+  webapp:
+    build: webapp/
+    depends_on:
+      - api-predict
+    ports:
+        - 8501:8501
+    networks:
+      - app_network
+    container_name: web-service
+
+networks:
+  app_network:
+    driver: bridge
