@@ -62,7 +62,7 @@ $ cd api
 $ docker build -t api-deterioracao:latest .
 
 # executar imagem
-$ docker run -p 8000:8000 api-deterioracao:latest
+$ sudo docker run --env PORT=8000 -p 8000:8000 api-deterioracao:latest
 ```
 
-O servidor inciará na porta:8000 e a documentação estará acessível em http://localhost:8000/docs.
+O servidor iniciará na porta:8000 e a documentação estará acessível em http://localhost:8000/docs.

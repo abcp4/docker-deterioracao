@@ -5,6 +5,7 @@ import requests
 import shap
 import streamlit as st
 import streamlit.components.v1 as components
+import os
 
 
 def st_shap(plot, height=None):
@@ -86,24 +87,24 @@ column_names = [
 ]
 column_names_nosector = [column_names[0]] + column_names[2:]
 
-API_URL = "http://api-predict:8000"
+API_URL = os.getenv("API_URL")
 
 
 if submit:
-    if modelo_name == "Modelo sem setor":
-        setor = "Nenhum"
+    query_params = {
+        "age": idade,
+        "temperature": temp,
+        "respiratory_frequency": resp,
+        "systolic_blood_pressure": sisto,
+        "diastolic_blood_pressure": diasto,
+        "mean_arterial_pressure": media,
+        "oxygen_saturation": o2,
+    }
+    if modelo_name == "Modelo com setor":
+        query_params["sector"] = setor
     r = requests.get(
         f"{API_URL}/predict",
-        params={
-            "age": idade,
-            "sector": setor,
-            "temperature": temp,
-            "respiratory_frequency": resp,
-            "systolic_blood_pressure": sisto,
-            "diastolic_blood_pressure": diasto,
-            "mean_arterial_pressure": media,
-            "oxygen_saturation": o2,
-        },
+        params=query_params,
     )
 
     data = r.json()

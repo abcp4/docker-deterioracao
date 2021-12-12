@@ -1,5 +1,8 @@
 """ Módulo principal da API de predição
 """
+from enum import Enum
+from typing import Optional
+
 import joblib
 import numpy as np
 from binning import binning
@@ -44,19 +47,39 @@ nosection_model = joblib.load("models/nosection_xgb_model.joblib")
 nosection_scaler = joblib.load("models/nosection_scaler.joblib")
 
 
+class SectorName(str, Enum):
+    sector_UTIG = "UTIG"
+    sector_1AP2 = "1AP2"
+    sector_4AP2 = "4AP2"
+    sector_UTIC = "UTIC"
+    sector_UTIP = "UTIP"
+    sector_3AP1 = "3AP1"
+    sector_3AP2 = "3AP2"
+    sector_4AP1 = "4AP1"
+    sector_1AP1 = "1AP1"
+    sector_2AP2 = "2AP2"
+    sector_UIP = "UIP"
+    sector_3AP3 = "3AP3"
+    sector_1AP2_126 = "1AP2 - 126"
+    sector_2AP1 = "2AP1"
+    sector_3AP3_EPI = "3AP3 - EPI"
+    sector_SEMI_CO = "SEMI-CO"
+
+
 @app.get("/predict")
 def predict_data(
     age: int,
-    sector: str,
     temperature: float,
     respiratory_frequency: float,
     systolic_blood_pressure: float,
     diastolic_blood_pressure: float,
     mean_arterial_pressure: float,
     oxygen_saturation: float,
+    sector: Optional[SectorName] = None,
 ):
     """Informe os dados do paciente que deseja obter uma predição."""
-    if sector != "Nenhum":
+    if sector is not None:
+        sector = sector.value
         sector_encoded = label_encoder.transform([sector])
         features = [
             age,
@@ -84,7 +107,7 @@ def predict_data(
     features.extend(list(extra_features.flatten()))
 
     features_np = np.asarray(features, dtype=np.float64)
-    if sector != "Nenhum":
+    if sector is not None:
         features_np = scaler.transform([features_np])
         y_pred = model.predict(features_np)
         return {"predict": y_pred[0], "features": features}

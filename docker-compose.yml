@@ -3,6 +3,8 @@ version: '3.8'
 services:
   api-predict:
     build: api/
+    environment:
+      - PORT=8000
     ports:
       - 8000:8000
     networks:
@@ -11,6 +13,8 @@ services:
 
   webapp:
     build: webapp/
+    environment:
+      - API_URL=http://api-predict:8000
     depends_on:
       - api-predict
     ports:

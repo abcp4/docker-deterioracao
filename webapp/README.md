@@ -12,9 +12,6 @@ Antes de começar é necessário possuir o Python 3 instalado em seu sistema ope
 
 ### :spider_web: Rodando a aplicação
 
-#### Observação:
-Se for executar cada aplicação individualmente, então troque o valor de API_URL no arquivo app.py por `API_URL="http://localhost:8000"`.
-
 #### :snake: Opção 1: Python
 
 ```bash
@@ -29,6 +26,9 @@ $ cd webapp
 
 # instale as dependências necessárias
 $ pip install -r requirements.txt
+
+# exporte a variável de ambiente
+$ export API_URL=http://localhost:8000
 
 # execute a aplicação
 $ streamlit run app.py
