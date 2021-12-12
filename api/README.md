@@ -46,7 +46,7 @@ $ pip install -r requirements.txt
 $ uvicorn main:app --reload
 ```
 
-#### :toolbox: Opção 2: Docker
+#### :whale2: Opção 2: Docker
 
 ```
 # clone este repositório
@@ -62,7 +62,7 @@ $ cd api
 $ docker build -t api-deterioracao:latest .
 
 # executar imagem
-$ sudo docker run --env PORT=8000 -p 8000:8000 api-deterioracao:latest
+$ docker run --env PORT=8000 -p 8000:8000 api-deterioracao:latest
 ```
 
 O servidor iniciará na porta:8000 e a documentação estará acessível em http://localhost:8000/docs.
