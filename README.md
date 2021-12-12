@@ -26,7 +26,7 @@ Foi realizada uma análise exploratória dos dados e um **notebook** detalhado e
 
 As seguintes ferramentas foram usadas na aplicação:
 
-- [XGBoost][xgboost] - algoritmo para classificação
+- [XGBoost][docker] - algoritmo para classificação
 - [Streamlit][streamlit] - para demonstração visual da predição
 - [FastAPI][fastapi] - para entrega do modelo através de uma API
 
@@ -39,7 +39,7 @@ Esse projeto se encontra dividido em duas partes:
 
 ### Pré-requisitos
 
-Antes de começar,  é necessário ter instalado [Git](https://git-scm.com), [Docker][docker] e [docker-compose](compose) . Caso opte por executar as aplicações separadamente, acesse a pasta `api` e `webapp` e siga as instruções dos READMEs de cada.
+Antes de começar,  é necessário ter instalado [Git](https://git-scm.com), [Docker][docker] e [docker-compose][compose] . Caso opte por executar as aplicações separadamente, acesse a pasta `api` e `webapp` e siga as instruções dos READMEs de cada.
 
 ### 🎲 Rodando a aplicação
 
@@ -58,8 +58,8 @@ $ docker-compose up --build
 A documentação da API estará disponível em http://0.0.0.0:8000/docs
 
 
-
 [docker]: https://docs.docker.com/engine/install/
+[streamlit]: https://streamlit.io/
+[fastapi]: https://fastapi.tiangolo.com/
 [compose]: https://docs.docker.com/compose/
-[notebooks]: https://github.com/abcp4/docker-deterioracao/notebooks
 
