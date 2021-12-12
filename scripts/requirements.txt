@@ -1,0 +1,10 @@
+streamlit==1.1
+uvicorn[standard]==0.16.0
+fastapi==0.70.0
+xgboost==0.90
+shap==0.40.0
+scikit-learn==1.0.1
+matplotlib==3.5.0
+joblib==1.1.0
+hyperopt==0.2.7
+imbalanced-learn==0.8.1
