@@ -11,7 +11,7 @@ Esta API serve um modelo de *machine learning* que prediz se um paciente obteve 
 - pressão arterial média
 - saturação da oxigenação
 
-Uma análise exploratória dos dados encontra-se disponível em [notebooks](https://github.com/abcp4/docker-deterioracao/notebooks).
+Uma análise exploratória dos dados encontra-se disponível em [notebooks](../notebooks).
 
 
 
