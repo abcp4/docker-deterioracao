@@ -10,7 +10,7 @@
       <img alt="Open in Heroku" src="https://img.shields.io/static/v1?label=Heroku&message=Open API Docs&color=green">
   </a>
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/abcp4/docker-deterioracao?color=%2304D361">
-  <a href="https://github.com/abcp4/docker-deterioracao/commits/master">
+  <a href="https://github.com/abcp4/docker-deterioracao/commits/main">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/abcp4/docker-deterioracao">
   </a>
 </p>
